@@ -1,0 +1,72 @@
+/* Общие стили для слайдера */
+.slick-slider {
+  margin: 70px 0;
+}
+
+/* Стили для каждого слайда */
+.slick-slide {
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  height: 225px !important;
+  width: 400px !important;
+  padding: 20px;
+  margin: 15px;
+}
+
+/* Стили для слайдов (трека) */
+.slick-track {
+  display: flex !important;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+/* Стили для изображений в слайдерах */
+.slider-img {
+  width: 65px;
+  height: 79px;
+}
+
+/* Стили для текста в слайдерах */
+.slider-info {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.01em;
+}
+
+/* Стили для стрелок (навигации) в слайдере */
+.slick-arrow {
+  height: 40px !important;
+  width: 40px !important;
+  &::before {
+    display: none;
+  }
+}
+
+/* Стили для кнопки "следующий слайд" */
+.slick-next {
+  background: url("../../../assets/img/right-arrow.svg") !important;
+}
+
+/* Стили для кнопки "предыдущий слайд" */
+.slick-prev {
+  background: url("../../../assets/img/left-arrow.svg") !important;
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media all and (max-width: 550px) {
+  .slick-slider {
+    width: 97%;
+    margin: 30px 0;
+  }
+  .slick-slide {
+    height: 100% !important;
+  }
+  .slick-prev {
+    left: -12px !important;
+  }
+  .slick-next {
+    right: -20px !important;
+  }
+}

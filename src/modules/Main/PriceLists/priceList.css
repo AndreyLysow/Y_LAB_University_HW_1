@@ -1,0 +1,194 @@
+/* Основные стили для блока тарифов */
+.prices {
+  display: flex;
+  justify-content: space-between;
+  margin: 80px 0;
+  align-items: center;
+}
+
+/* Стили для каждого тарифа */
+.rate {
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  width: 30%;
+}
+
+/* Верхняя часть тарифа */
+.rate-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 6px 30px 20px;
+  height: 132px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+/* Информация в верхней части тарифа */
+.rate-header__info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Заголовок тарифа */
+.rate-title {
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 30px;
+  letter-spacing: var(--letter-spacing);
+  margin: 0;
+}
+
+/* Описание тарифа */
+.rate-description {
+  font-family: "Inter";
+  font-size: 18px;
+  letter-spacing: var(--letter-spacing);
+  margin-top: 15;
+}
+
+/* Основная часть тарифа */
+.rate-body {
+  padding: 30px;
+  position: relative;
+}
+
+/* Контейнер для цены тарифа */
+.rate-price__container {
+  display: flex;
+}
+
+/* Цена тарифа */
+.rate-price {
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 30px;
+  letter-spacing: var(--letter-spacing);
+  margin: 0;
+}
+
+/* Цена тарифа со скидкой */
+.rate-price__discount {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  margin-left: 20px;
+  opacity: 0.5;
+}
+
+/* Информация о тарифе */
+.rate-info {
+  font-family: "Inter";
+  font-size: 18px;
+  letter-spacing: var(--letter-spacing);
+  display: flex;
+  list-style: none;
+}
+
+/* Информационный блок о тарифе */
+.rate-info__loan {
+  height: 50px;
+  margin: 10px 0;
+}
+
+/* Заголовок информационного блока */
+.rate-info__title {
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Иконка в информационном блоке */
+.rate-info__check {
+  margin-right: 10px;
+}
+
+/* Кнопка для запроса тарифа */
+.rate-button {
+  width: 100%;
+  height: 60px;
+  margin-top: 60px;
+  background: var(--main-color-blue);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: var(--transition);
+  
+  /* Ссылка внутри кнопки */
+  & a {
+    font-family: "Inter";
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: var(--letter-spacing);
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+/* Стили при наведении на кнопку */
+.rate-button:hover {
+  transform: scale(1.03);
+  box-shadow: #596fff6c 3px 3px 0px 1px;
+}
+
+/* Стили при нажатии на кнопку */
+.rate-button:active {
+  transform: scale(1);
+  box-shadow: none;
+}
+
+/* Особые стили для текущего тарифа */
+.rate-body__current {
+  border: 2px solid var(--main-color-yellow);
+  border-radius: 0 0 10px 10px;
+}
+
+/* Особые стили для текущей кнопки */
+.rate-button__current {
+  background-color: #d2d2d2;
+  & a {
+    color: #000;
+  }
+}
+
+/* Стили при наведении на текущую кнопку */
+.rate-button__current:hover {
+  box-shadow: #484a586c 3px 3px 0px 1px;
+}
+
+/* Стили для метки "Текущий" */
+.current {
+  color: #fff;
+  font-size: 14px;
+  padding: 3px 13px;
+  background: #3ba5e0;
+  border-radius: 10px;
+  position: absolute;
+  right: 10px;
+  top: 15px;
+}
+
+/* Стили для скрытия метки "Текущий" */
+.current-disabled {
+  display: none;
+}
+
+/* Медиазапрос для экранов с шириной до 1000px */
+@media screen and (max-width: 1000px) {
+  /* Изменения в стилях для адаптивного дизайна */
+  .prices {
+    flex-direction: column;
+    margin: 20px 0;
+  }
+
+  .rate {
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .rate-button {
+    margin-top: 30px;
+  }
+
+  .rate-price {
+    font-size: 23px; 
+  }
+}
