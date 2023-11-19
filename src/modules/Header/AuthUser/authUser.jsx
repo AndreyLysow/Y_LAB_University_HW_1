@@ -10,8 +10,15 @@ const AuthUser = observer(() => {
   const [login, setLogin] = useState(localStorage.getItem("login") || "Гость");
 
   useEffect(() => {
-    store.checkToken();
-    store.getCompaniesInfo();
+    // Заглушка для isCompaniesLoading и getCompaniesInfo
+    const fetchData = async () => {
+      // Имитация задержки, как если бы мы делали запрос к серверу
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+     
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -24,26 +31,6 @@ const AuthUser = observer(() => {
 
   return (
     <div className="authUser">
-      <div className="companies-wrapper">
-        {store.isCompaniesLoading ? (
-          <Runing />
-        ) : (
-          <>
-            <p className="companies-info">
-              Использовано компаний
-              <span className="companies-number">
-                {store.companiesInfo.used}
-              </span>
-            </p>
-            <p className="companies-info">
-              Лимит по компаниям
-              <span className="companies-number companies-number__limit">
-                {store.companiesInfo.limit}
-              </span>
-            </p>
-          </>
-        )}
-      </div>
       <div className="user-info">
         <span className="username">{login}</span>
         <button
@@ -59,7 +46,7 @@ const AuthUser = observer(() => {
           </Link>
         </button>
       </div>
-      <img className="user-avatar" src={avatar} alt="user avatar" />
+  
     </div>
   );
 });

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import lock from "../../../assets/img/img-lock.svg";
@@ -12,10 +12,13 @@ import Runing from "../../RunAnimaton/runing";
 
 const Form = observer(() => {
   const navigate = useNavigate();
+  const [isLoadingAnimation, setLoadingAnimation] = useState(false);
 
   useEffect(() => {
-    store.token && navigate("/");
-  });
+    if (store.token) {
+      navigate("/");
+    }
+  }, [store.token, navigate]);
 
   const {
     register,
@@ -25,17 +28,34 @@ const Form = observer(() => {
   } = useForm({
     mode: "onBlur",
     defaultValues: {
-      login: "sf_student9",
+      login: "lysow@yandex.ru",
       password: "DTdEwAn",
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     store.setLogin(data.login);
     store.setPassword(data.password);
+    setLoadingAnimation(true); // Показываем анимацию загрузки
+    // Может потребоваться добавить логику задержки здесь
     store.getToken();
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Пример задержки в 1 секунду
+    setLoadingAnimation(false); // Скрываем анимацию загрузки
     reset();
+    if (isValidEmail(data.login)) {
+      console.log("Navigating to welcome page");
+      navigate("/welcome");
+    } else {
+      console.log("Invalid email format");
+    }
   };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const submitButtonContent = isLoadingAnimation ? <Runing /> : "Войти";
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -49,21 +69,16 @@ const Form = observer(() => {
         </button>
       </div>
       <label className="form-label">
-        {store.isAuthError
-          ? "Неправильный e-mail"
-          : "e-mail:"}
+        {store.isAuthError ? "Неправильный e-mail" : "E-mail:"}
         <input
-          {...register("e-mail", {
+          {...register("login", {
             required: true,
+            validate: isValidEmail,
           })}
-          className={
-            errors?.login ? "form-input form-input__invalid" : "form-input"
-          }
+          className={errors?.login ? "form-input form-input__invalid" : "form-input"}
           type="text"
         />
-        {errors?.login && (
-          <p className="error-message">Введите корректные данные</p>
-        )}
+        {errors?.login && <p className="error-message">Введите корректные данные</p>}
       </label>
       <label className="form-label">
         {store.isAuthError ? "Неправильный пароль" : "Пароль:"}
@@ -71,46 +86,28 @@ const Form = observer(() => {
           {...register("password", {
             required: true,
           })}
-          className={
-            errors?.password ? "form-input form-input__invalid" : "form-input"
-          }
+          className={errors?.password ? "form-input form-input__invalid" : "form-input"}
           type="password"
           autoComplete="on"
         />
-        {errors?.password && (
-          <p className="error-message">Введите корректные данные</p>
-        )}
+        {errors?.password && <p className="error-message">Введите корректные данные</p>}
       </label>
-      {store.isLoading ? (
-        <button
-          disabled={!isValid}
-          className="form-button__submit"
-          type="submit"
-        >
-          <Runing />
-        </button>
-      ) : (
-        <button
-          disabled={!isValid}
-          className="form-button__submit"
-          type="submit"
-        >
-          Войти
-        </button>
-      )}
+      <button disabled={!isValid} className="form-button__submit" type="submit">
+        {submitButtonContent}
+      </button>
       <Link className="repare-password" to="/error">
         Восстановить пароль
       </Link>
       <p className="sign-with">Войти через:</p>
       <div className="sign-socials">
         <Link to="https://google.com" target="_blank">
-          <img src={google} alt="" />
+          <img src={google} alt="Google" />
         </Link>
         <Link to="https://facebook.com" target="_blank">
-          <img src={facebook} alt="" />
+          <img src={facebook} alt="Facebook" />
         </Link>
         <Link to="https://yandex.ru" target="_blank">
-          <img src={yandex} alt="" />
+          <img src={yandex} alt="Yandex" />
         </Link>
       </div>
     </form>
@@ -118,3 +115,6 @@ const Form = observer(() => {
 });
 
 export default Form;
+
+
+

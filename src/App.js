@@ -1,32 +1,32 @@
-import "./App.css"
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-const Error = React.lazy(() => import("./modules/PageNotFound/error404"));
-const Authorize = React.lazy(() => import("./modules/Authorize/auth"));
-
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Error from "./modules/PageNotFound/error404";
+import Authorize from "./modules/Authorize/auth";
+import Welcome from "./modules/welcome/welcome"; // Импортируйте компонент для страницы велкам
 
 const routesData = [
+  { path: "/", element: <Authorize onLoginSuccess={() => <Navigate to="/welcome" />} /> },
   { path: "/error", element: <Error /> },
-  { path: "/auth", element: <Authorize /> },
+  { path: "/welcome", element: <Welcome /> }, // Добавьте маршрут для страницы велкам
 ];
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <React.Suspense fallback={<div>Loading...</div>}>
-          <main>
-            <Routes>
-              {routesData.map((route, index) => (
-                <Route key={index} path={route.path} element={route.element} />
-              ))}
-            </Routes>
-          </main>
-        </React.Suspense>
+        <main>
+          <Routes>
+            {routesData.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+          </Routes>
+        </main>
       </BrowserRouter>
     </div>
   );
 }
 
 export default App;
+
+
+
